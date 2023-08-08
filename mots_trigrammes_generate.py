@@ -26,6 +26,14 @@ st=np.tile(s.T,(256,1,1)).T
 p=count.astype('float')/st
 p[np.isnan(p)]=0
 
+# Load the trigram count matrix and normalize it
+count = np.fromfile(
+        "count_en.bin" if argv[1] == 'en' else "count_fr.bin",
+        dtype="int32").reshape(256,256,256)
+s=count.sum(axis=2)
+st=np.tile(s.T,(256,1,1)).T
+p=count.astype('float')/st
+p[np.isnan(p)]=0
 
 # Build words
 outfile = "output.txt"
